@@ -59,9 +59,9 @@ if(isset($script_lists[$action])) {
  * base_url BASE_URL
  * script $script
  */
-$loader = new Twig_Loader_Filesystem('/static');
+$loader = new Twig_Loader_Filesystem(dirname(__FILE__) . '/static');
 $twig = new Twig_Environment($loader, array(
-	'cache' => '/resource/cache',
+	'cache' => dirname(__FILE__) . '/resource/cache',
 ));
 
 $template = $twig->load('admin.twig');
