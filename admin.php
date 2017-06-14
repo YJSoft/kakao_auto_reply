@@ -67,7 +67,7 @@ $twig = new Twig_Environment($loader, array(
 $template = $twig->load('admin.twig');
 echo $template->render(array(
 	'title' => $title[$action],
-	'php_self' => $title[$action],
+	'php_self' => $_SERVER['PHP_SELF'],
 	'action' => $action,
 	'post' => isset($_GET['post']) && $_GET['post'] === "1",
 	'result' => $result,

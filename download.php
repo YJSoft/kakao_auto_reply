@@ -14,7 +14,7 @@ if (!is_session_start()) {
 }
 
 if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== TRUE) {
-    show_error(403, "Login plz. <a href=\"" . BASE_URL . "login.php\">Login</a>");
+    show_error(403, "Login please. <a href=\"" . BASE_URL . "login.php\">Login</a>");
 }
 
 if (!isset($_GET['filename']) || !file_download($_GET['filename']))

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>설치하기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>.chips .input{margin-bottom:0!important}</style>
+</head>
+<body>
+<div class="container">
+    {% if no == 1 %}
+        {% if send != true %}
+            <form action="{{ current_url }}?no={{ no }}&amp;send=1" method="post" onsubmit="return validation(this);">
+                <div class="row">
+                    <h5>관리자 계정 설정</h5>
+                    <div class="input-field col s8">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required><br>
+                    </div>
+                    <div class="input-field col s8">
+                        <label for="password1">Password</label>
+                        <input type="password" id="password1" name="password1" required><br>
+                    </div>
+                    <div class="input-field col s8">
+                        <label for="password2">Re-password</label>
+                        <input type="password" id="password2" name="password2" required><br>
+                    </div>
+                    <div class="input-field col s8">
+                        <input type="submit" class="btn waves-effect waves-light col s12" value="제출">
+                    </div>
+                </div>
+            </form>
+        {% else %}
+            {% if result == true %}
+                <script>alert("계정 생성 완료");location.href = "{{ current_url }}?no=2"</script>
+            {% else %}
+                <script>alert("계정 생성 실패({{ reason }})");history.back();</script>
+            {% endif %}
+        {% endif %}
+    {% elseif no == 2 %}
+        {% if send != true %}
+            <div class="row">
+                <h5>초기 Keyboard 설정하기</h5>
+                <div class="chips" id="keyboard_chips"></div>
+                <a class="waves-effect waves-light btn" onclick="update_home_keyboard()">설정하기</a>
+                <form id="update_keyboard" action="{{ current_url }}?no={{ no }}&amp;send=1" method="post">
+                </form>
+            </div>
+        {% else %}
+            {% if result == true %}
+                <script>alert("초기 Keyboard 설정 완료");location.href = "{{ current_url }}?no=3";</script>
+            {% else %}
+                <script>alert("초기 Keyboard 설정 실패");history.back();</script>
+            {% endif %}
+        {% endif %}
+    {% elseif no == 3 %}
+        <div class="row">
+            <div class="col s12">
+                <h5>설정 확인하기</h5>
+                <p>User : {{ username }}</p>
+                <p>Default Keyboard : [{{ keyboard }}]</p>
+                <p><a href="{{ base_url }}login.php">완료</a></p>
+            </div>
+        </div>
+    {% else %}
+        ERROR
+    {% endif %}
+</div>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script src="{{ base_url }}static/js/{{ script }}"></script>
+</body>
+</html>
