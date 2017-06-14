@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>관리자 페이지</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .chips .input{margin-bottom:0!important}div.msg_box{overflow:auto;height:500px;margin-right:20px}a.keyboard_button{margin-right:5px}div.one_msg{display:inline-block}
+    </style>
+</head>
+<body>
+<div class="row">
+    <div class="col l9 offset-l3 s12">
+        <h4>{{ title }}</h4>
+    </div>
+    <div class="col l3 s12">
+        <div class="collection">
+            <a class="collection-item" href="{{ php_self }}?action=add">버튼 추가하기</a>
+            <a class="collection-item" href="{{ php_self }}?action=keyboard">Home Keyboard 보기 / 수정</a>
+            <a class="collection-item" href="{{ php_self }}?action=find">파일명 찾기</a>
+            <a class="collection-item" href="{{ php_self }}?action=test">테스트 하기</a>
+            <a class="collection-item" href="{{ php_self }}?action=logout">로그아웃</a>
+        </div>
+    </div>
+    <div class="col l9 s12">
+        {% if action == "default" %}
+            좌측에 있는 메뉴 중에서 원하는 내용을 클릭하시기 바랍니다.
+        {% elseif action == "add" %}
+            {% if post %}
+                /resource/msg/{{ result }}에 성공적으로 쓰여졌습니다. <a href="{{ php_self }}">돌아가기</a>
+            {% else %}
+                {% include('addform.twig') %}
+            {% endif %}
+        {% elseif action == "keyboard" %}
+            {% if post %}
+                {% if result == true %}
+                    <script>alert("Keyboard 설정 완료");location.href = "{{ php_self }}?action=keyboard";</script>
+                {% else %}
+                    <script>alert("Keyboard 설정 실패");history.back();</script>
+                {% endif %}
+            {% else %}
+                <div id="keyboard_chips" class="chips chips-initial">
+
+                </div>
+                <a class="waves-effect waves-light btn" onclick="update_home_keyboard()">수정하기</a>
+                <form id="update_keyboard" action="{{ php_self }}?action=keyboard&amp;post=1" method="post">
+                </form>
+            {% endif %}
+        {% elseif action == "find" %}
+            <div id="search_file" class="col s12">
+                <form method="post">
+                    <div class="input-field col s10">
+                        <input id="button_name" type="text" name="button_name" maxlength="30">
+                        <label for="button_name">버튼 이름</label>
+                    </div>
+                    <div class="col s2">
+                        <input type="submit" class="btn waves-effect waves-light" value="찾기" style="margin-top:20px">
+                    </div>
+                </form>
+            </div>
+            <br>
+            {% if button_name != "" %}
+                <div id="result" class="col s12">
+                    <p>파일 이름 : <strong>{{ filename }}</strong></p>
+                    <p>파일 위치 : <strong>{{ filename_with_path }}</strong></p>
+                    <p><a href="{{ base_url }}download.php?filename={{ filename }}">다운로드 하기</a></p>
+                    <p>파일 내용을 수정하시려면 위쪽의 <b>다운로드 하기</b>를 누르시고 내용만 수정하신 후에 FTP로 접속하여</p>
+                    <p><b>{{ filename_with_path }}</b>를 덮어쓰기 하시면 됩니다.</p>
+                </div>
+            {% else %}
+                <p>해당하는 버튼이 아직 생성되지 않았습니다.</p>
+        {% elseif action == "test" %}
+            <div class="row">
+                <div class="cyan msg_box">
+                    <div class="col s12 m9" id="msg_show"></div>
+                </div>
+            </div>
+            <div id="keyboards"></div>
+        {% else %}
+            <p>알 수 없는 명령어입니다.</p>
+        {% endif %}
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script>base_url="{{ base_url }}";</script>
+{% if script != "" %}
+<script src="{{ base_url }}static/js/{{ script }}"></script>
+{% endif %}
+</body>
+</html>

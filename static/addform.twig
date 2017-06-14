@@ -1,0 +1,92 @@
+<form enctype="multipart/form-data" id="add_button_form" method="post" action="{{ php_self }}?action=add&amp;post=1">
+    <div id="button_text" class="col s12">
+        <h5>텍스트</h5>
+        <div class="input-field col s10">
+            <input id="content" type="text" name="content" maxlength="30" required>
+            <label for="content">버튼 이름</label>
+        </div>
+
+        <div class="input-field col s10">
+            <textarea name="message" id="message" class="materialize-textarea" required></textarea>
+            <label for="message">표시할 메시지 (최대 1,000자)</label>
+        </div>
+    </div>
+
+    <div id="button_image" class="col s12">
+        <h5>이미지</h5>
+        <div class="col s10">
+            <input type="checkbox" name="use_img" id="use_img" value="1">
+            <label for="use_img">이미지를 사용합니다.</label>
+        </div>
+
+        <div id="use_img_content">
+            <div class="col s10">
+                <input type="checkbox" name="use_img_link" id="use_img_link" value="1">
+                <label for="use_img_link">URL로 사용합니다.</label>
+            </div>
+
+            <div class="input-field col s10" id="use_img_link_content">
+                <input id="img_url_path" type="url" name="img_file">
+                <label for="img_url_path">이미지 URL</label>
+            </div>
+
+            <div class="file-field input-field col s10" id="use_img_upload_content">
+                <div class="btn">
+                    <span>이미지 File</span>
+                    <input type="file" name="img_file" id="img_file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+
+            <div class="input-field col s5">
+                <input id="img_width" type="number" name="img_width">
+                <label for="img_width">이미지 너비</label>
+            </div>
+
+            <div class="input-field col s5">
+                <input id="img_height" type="number" name="img_height">
+                <label for="img_height">이미지 높이</label>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="button_link" class="col s12">
+        <h5>링크</h5>
+        <div class="col s10">
+            <input type="checkbox" name="use_link" id="use_link" value="1">
+            <label for="use_link">링크를 사용합니다.</label>
+        </div>
+
+        <div id="use_link_content">
+            <div class="input-field col s10">
+                <input id="url_path" type="url" name="url_path">
+                <label for="url_path">이동할 링크</label>
+            </div>
+
+            <div class="input-field col s10">
+                <input id="url_msg" type="text" name="url_msg">
+                <label for="url_msg">표시할 내용</label>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="button_keyboard" class="col s12">
+        <h5>Keyboard</h5>
+        <div class="col s10">
+            <input type="checkbox" name="use_default_keyboard" id="use_default_keyboard" value="1">
+            <label for="use_default_keyboard">Default keyboard를 사용합니다.</label>
+
+            <div id="use_default_keyboard_content">
+                미디어 입력을 원하면 아래를 빈 칸으로 둡니다.
+                <div class="chips"></div>
+            </div>
+        </div>
+    </div>
+
+    <a class="waves-effect waves-light btn" onclick="submit_form()">제출하기</a>
+</form>

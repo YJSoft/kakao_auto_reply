@@ -1,0 +1,15 @@
+{
+    "name": "yjsoft/kakao_auto_reply",
+    "description": "Kakaotalk auto reply api",
+    "type": "project",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Jang Joonho",
+            "email": "jhjang1005@naver.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "~1.0"
+    }
+}
