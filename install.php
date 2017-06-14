@@ -78,5 +78,5 @@ echo $template->render(array(
 	'username' => $username,
 	'keyboard' => $keyboard,
 	'base_url' => BASE_URL,
-	'script' => $script[$no]
+	'script' => isset($script[$no]) ? $script[$no] : ""
 ));
